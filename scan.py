@@ -1,24 +1,3 @@
-"""
-All Scanner — daily price/signal scan.
-
-Reads:  data/halal_list.json   (the master list — edit this to add/remove stocks)
-Writes: data/stocks.json       (adds a live price + strategy signal to each stock the site can read)
-
-Run automatically by .github/workflows/scan.yml every weekday evening (see README),
-so it works with your laptop closed.
-
-Known limits, on purpose rather than by accident:
-- NSE/BSE (India) prices come from Yahoo Finance via yfinance — free, but delayed
-  end-of-day, not real-time.
-- DFM/ADX (UAE) tickers mostly are NOT on Yahoo Finance. Those stocks are carried
-  through with no "sig" block, and the site honestly shows "Not scanned yet" for
-  them instead of guessing. To light these up, plug a UAE data source (e.g. a paid
-  feed, or DFM/ADX's own API if you get access) into `signal_uae()` below.
-- Halal status itself is NOT re-checked here — that needs a Shariah screen (AAOIFI
-  ratios: debt, cash, interest income vs market cap), not just a price feed. Re-check
-  the list against Musaffa or NSE's own Shariah index page every month or so, and
-  edit data/halal_list.json by hand. This script only refreshes prices/signals.
-"""
 from datetime import datetime
 import json
 import os
@@ -31,21 +10,7 @@ def load_halal_tickers():
   if os.path.exists(path):
     with open(path, "r") as f:
       return json.load(f)
-  # Fallback sample list if file is missing
-  return [
-      {
-          "symbol": "CHENNPETRO.NS",
-          "name": "Chennai Petroleum",
-          "exchange": "NSE",
-          "sector": "Energy",
-      },
-      {
-          "symbol": "KPITTECH.NS",
-          "name": "KPIT Technologies",
-          "exchange": "NSE",
-          "sector": "IT",
-      },
-  ]
+  return []
 
 
 def main():
@@ -57,13 +22,29 @@ def main():
   )
 
   for item in tickers:
-    symbol = item.get("symbol")
-    name = item.get("name", symbol)
-    exchange = item.get("exchange", "NSE")
-    sector = item.get("sector", "General")
+    # Safely handle whether item is a dict, list, or string
+    if isinstance(item, dict):
+      symbol = item.get("symbol")
+      name = item.get("name", symbol)
+      exchange = item.get("exchange", "NSE")
+      sector = item.get("sector", "General")
+    elif isinstance(item, (list, tuple)):
+      symbol = item[0] if len(item) > 0 else None
+      name = item[1] if len(item) > 1 else symbol
+      exchange = item[2] if len(item) > 2 else "NSE"
+      sector = item[3] if len(item) > 3 else "General"
+    elif isinstance(item, str):
+      symbol = item
+      name = item
+      exchange = "NSE"
+      sector = "General"
+    else:
+      continue
+
+    if not symbol:
+      continue
 
     try:
-      # Fetch 1 year of daily data to ensure 200 EMA and 30D high accuracy
       stock = yf.Ticker(symbol)
       df = stock.history(period="1y")
 
@@ -80,7 +61,7 @@ def main():
       ema_200 = float(df["EMA_200"].iloc[-1])
       ema_9 = float(df["EMA_9"].iloc[-1])
       ema_21 = float(df["EMA_21"].iloc[-1])
-      high_30d = float(df["High_30D"].iloc[-2])  # Completed 30D rolling high
+      high_30d = float(df["High_30D"].iloc[-2])
 
       # ==========================================
       # STRICT STRATEGY RULES CHECK
@@ -111,7 +92,6 @@ def main():
     except Exception as e:
       print(f"Error processing {symbol}: {e}")
 
-  # Save results for the frontend website dashboard
   os.makedirs("data", exist_ok=True)
   with open("data/stocks.json", "w") as f:
     json.dump(results, f, indent=4)
