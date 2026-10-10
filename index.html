@@ -1,299 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0B0F19">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<title>All Scanner — Halal stocks in India & UAE</title>
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0B0F19;--card:rgba(19,24,38,.82);--hov:#1A2035;--bd:rgba(148,163,184,.16);--tx:#E5E7EB;--sub:#94A3B8;--hw:#fff;--sky:#38BDF8;--pur:#A855F7;--grn:#10B981;--neon:#22C55E}
-:root[data-theme=light]{--bg:#EEF2F7;--card:rgba(255,255,255,.9);--hov:#fff;--bd:rgba(15,23,42,.12);--tx:#0F172A;--sub:#475569;--hw:#0F172A}
-*{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 Inter,system-ui,sans-serif;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(520px circle at var(--px,50%) var(--py,18%),rgba(56,189,248,.11),transparent 60%)}
-.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-[hidden]{display:none!important}
-.pg{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--sky),var(--pur),var(--grn));z-index:80}
-.au{position:fixed;inset:0;z-index:-3;overflow:hidden}
-.au i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.3;animation:dr 22s ease-in-out infinite alternate}
-.au i:nth-child(1){background:#A855F7;left:-15%;top:-25%}
-.au i:nth-child(2){background:#0EA5E9;right:-20%;top:5%;animation-delay:-8s}
-.au i:nth-child(3){background:#10B981;left:15%;bottom:-40%;animation-delay:-14s}
-@keyframes dr{to{transform:translate(8vw,6vh) scale(1.15)}}
-.gr{position:fixed;inset:0;z-index:-2;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 50% 25%,#000 15%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 25%,#000 15%,transparent 75%);animation:gs 14s linear infinite}
-@keyframes gs{to{background-position:0 48px}}
-#fx{position:fixed;inset:0;z-index:-1;pointer-events:none}
-:root[data-theme=light] #fx{opacity:.25}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 20px;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd)}
-.hr{display:flex;gap:8px}
-.brand{font-weight:800;font-size:1.25rem;letter-spacing:.03em;background:linear-gradient(90deg,var(--sky),var(--pur),var(--sky));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite;filter:drop-shadow(0 0 12px rgba(56,189,248,.45))}
-@keyframes sh{to{background-position:200% 0}}
-.chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--bd);background:var(--card);color:var(--sub);font:600 .8rem Inter,sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap}
-.chip:hover{color:var(--tx);border-color:var(--sky);box-shadow:0 0 18px rgba(56,189,248,.25)}
-.chip.on{color:#04121f;background:linear-gradient(90deg,var(--sky),#7dd3fc);border-color:transparent;box-shadow:0 0 22px rgba(56,189,248,.45)}
-:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
-main{max-width:1150px;margin:0 auto;padding:0 18px 40px}
-.hero{position:relative;text-align:center;padding:54px 0 18px}
-.rings{position:absolute;left:50%;top:150px;pointer-events:none}
-.rings i{position:absolute;left:-40vmin;top:-40vmin;width:80vmin;height:80vmin;border:1px solid rgba(56,189,248,.28);border-radius:50%;opacity:0;animation:rg 7s ease-out infinite}
-@keyframes rg{from{transform:scale(.15);opacity:.9}to{transform:scale(1);opacity:0}}
-.kick{position:relative;display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid var(--bd);background:var(--card);font-size:.8rem;color:var(--sub);margin:0 0 18px}
-h1{position:relative;font-size:clamp(2.2rem,6.5vw,4.3rem);line-height:1.08;margin:0 0 14px;font-weight:800;color:var(--hw)}
-#rw{display:inline-block;background:linear-gradient(90deg,var(--sky),var(--pur),var(--sky));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite;transition:opacity .35s,filter .35s,transform .35s}
-#rw.sw2{opacity:0;filter:blur(8px);transform:translateY(8px)}
-.sub{position:relative;max-width:620px;margin:0 auto;color:var(--sub);font-size:1.05rem}
-.sb{position:relative;max-width:580px;margin:24px auto 0}
-.sb input{width:100%;padding:16px 46px 16px 20px;border-radius:16px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:500 1rem Inter,sans-serif;outline:none;backdrop-filter:blur(10px);transition:box-shadow .25s,border-color .25s}
-.sb input:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(56,189,248,.15),0 0 40px rgba(56,189,248,.3)}
-.sb kbd{position:absolute;right:14px;top:50%;transform:translateY(-50%);padding:2px 8px;border-radius:6px;border:1px solid var(--bd);color:var(--sub);font:600 .75rem 'JetBrains Mono',monospace}
-.meta{position:relative;margin:14px 0 0;font-size:.78rem;color:var(--sub)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:22px 0}
-.s,.card{padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--bd)}
-.s b{display:block;font:700 2.2rem 'JetBrains Mono',monospace;background:linear-gradient(90deg,var(--sky),var(--pur));-webkit-background-clip:text;background-clip:text;color:transparent}
-.s span{color:var(--sub);font-size:.85rem}
-.sp{position:relative;overflow:hidden;margin-bottom:14px}
-.sph{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.sph h3{margin:0}
-.sp .row{margin:10px 0 0}
-.sp.off .row,.sp.off .sph{opacity:.3;pointer-events:none}
-.lk{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;font-size:.9rem;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(3px)}
-.lk div{max-width:600px}
-.rv{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
-.rv.in{opacity:1;transform:none}
-.mq{overflow:hidden;border-block:1px solid var(--bd);padding:10px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.tk{display:flex;gap:30px;width:max-content;animation:mq 90s linear infinite}
-.mq:hover .tk{animation-play-state:paused}
-.tk a{font:700 .85rem 'JetBrains Mono',monospace;color:var(--sky);text-decoration:none}
-@keyframes mq{to{transform:translateX(-50%)}}
-.flt{margin:22px 0 14px;display:flex;flex-direction:column;gap:10px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.cnt{color:var(--sub);font-size:.85rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:14px}
-.c{position:relative;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--bd);overflow:hidden;transition:transform .15s,border-color .2s;animation:up .5s backwards;animation-delay:calc(var(--i)*25ms)}
-.c::before{content:'';position:absolute;inset:0;background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),rgba(56,189,248,.2),transparent 60%);opacity:0;transition:opacity .2s;pointer-events:none}
-.c:hover{border-color:rgba(56,189,248,.5)}
-.c:hover::before{opacity:1}
-@keyframes up{from{opacity:0;transform:translateY(16px) scale(.96)}}
-.r1,.r2{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.rr{display:flex;gap:6px;align-items:center}
-.r2{margin-top:12px;flex-wrap:wrap;justify-content:flex-start}
-.sym{font:700 1.15rem 'JetBrains Mono',monospace;color:var(--sky);text-decoration:none;display:inline-block;transition:transform .15s}
-.sym:hover{text-decoration:underline;transform:scale(1.05);color:#7dd3fc}
-.ex,.tr{padding:2px 9px;border-radius:999px;font:700 .68rem 'JetBrains Mono',monospace}
-.NSE,.BSE{color:var(--pur);background:#581C87}
-.DFM{color:#38BDF8;background:#0c3a56}
-.ADX{color:var(--grn);background:#064E3B}
-.tr{animation:gl 2s ease-in-out infinite}
-.tr.PV{color:var(--grn);background:#064E3B}
-.tr.SPV{color:#e9d5ff;background:#7e22ce}
-@keyframes gl{50%{box-shadow:0 0 14px currentColor}}
-.nm{margin-top:6px;font-weight:600}
-.tg{padding:2px 10px;border-radius:999px;border:1px solid var(--bd);font-size:.72rem;color:var(--sub)}
-.cf{font-size:.7rem;padding:1px 8px;border-radius:999px;border:1px solid}
-.cf.hi{color:var(--neon);border-color:rgba(34,197,94,.4)}
-.cf.mid{color:#FBBF24;border-color:rgba(251,191,36,.4)}
-.vf{font-size:.7rem;color:var(--sub);text-decoration:none}
-.vf:hover{color:var(--sky)}
-.wr{margin-top:8px;font-size:.72rem;color:#FBBF24}
-.ns{margin-top:8px;font-size:.75rem;color:var(--sub);font-style:italic}
-.pr{margin-top:6px;font-weight:700}.gn{color:var(--neon)}.rd{color:#F87171}
-.spk{width:100%;height:28px;margin-top:6px;overflow:visible}
-.spk polyline{fill:none;stroke:var(--sky);stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1;animation:dw 1.2s .2s forwards;vector-effect:non-scaling-stroke}
-@keyframes dw{to{stroke-dashoffset:0}}
-.rl{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
-.rc{font-size:.66rem;padding:1px 7px;border-radius:999px;border:1px solid var(--bd)}
-.rc.y{color:var(--neon);border-color:rgba(34,197,94,.4)}
-.rc.n{color:var(--sub);opacity:.65}
-.obz{margin-top:6px;font-size:.7rem;color:var(--sub)}
-.emp{grid-column:1/-1;text-align:center;color:var(--sub);padding:30px}
-.ins{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin:26px 0}
-.card h3{margin:0 0 12px;font-size:1rem}
-.dn{width:150px;display:block;margin:0 auto}
-.lg{display:flex;justify-content:center;gap:16px;font-size:.85rem;margin-top:8px}
-.lg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
-.br{display:block;width:100%;text-align:left;background:none;border:0;color:var(--tx);cursor:pointer;padding:5px 0;font:inherit;font-size:.88rem}
-.rw{display:flex;justify-content:space-between}
-.bt{display:block;height:8px;border-radius:6px;background:var(--hov);overflow:hidden;margin-top:4px}
-.bf{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--sky),var(--pur));transition:width 1s cubic-bezier(.2,.8,.2,1)}
-.inf{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:.88rem;color:var(--sub)}
-.inf b{color:var(--tx)}
-dl{margin:0;display:grid;gap:8px;font-size:.85rem;color:var(--sub)}dt{color:var(--tx);font-weight:600}dd{margin:0}
-details.card{margin-bottom:14px}
-summary{cursor:pointer;font-weight:600}
-textarea{width:100%;margin:10px 0;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--hov);color:var(--tx);font:500 .85rem 'JetBrains Mono',monospace}
-footer{max-width:1150px;margin:0 auto;padding:10px 18px 30px;color:var(--sub);font-size:.78rem}
-footer a{color:var(--sky)}
-.sw{position:fixed;top:0;bottom:0;left:0;width:30vw;transform:translateX(-110%);pointer-events:none;z-index:60;background:linear-gradient(90deg,transparent,rgba(56,189,248,.3),transparent)}
-.sw.go{animation:swp 1.2s ease-out}
-@keyframes swp{from{transform:translateX(-110%)}to{transform:translateX(440%)}}
-.ts{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;padding:10px 18px;border-radius:999px;background:var(--card);border:1px solid var(--sky);box-shadow:0 0 30px rgba(56,189,248,.35);font-size:.85rem;z-index:70;transition:all .35s;backdrop-filter:blur(12px);max-width:92vw;text-align:center}
-.ts.on{opacity:1;transform:translate(-50%,0)}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Scanner by CapsuleAcademy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B0F19; color: #F3F4F6; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0B0F19; }
+        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
 </head>
-<body>
-<div class="pg" id="pg"></div>
-<div class="au"><i></i><i></i><i></i></div><div class="gr"></div><canvas id="fx"></canvas>
-<header>
-  <span class="brand">ALL SCANNER</span>
-  <div class="hr">
-    <button id="rb" class="chip" title="Click to pause or resume"><svg width="22" height="22" viewBox="0 0 26 26"><circle cx="13" cy="13" r="10" fill="none" stroke="rgba(148,163,184,.3)" stroke-width="3"/><circle id="rc" cx="13" cy="13" r="10" fill="none" stroke="#22C55E" stroke-width="3" stroke-linecap="round" stroke-dasharray="62.83" transform="rotate(-90 13 13)" style="transition:stroke-dashoffset 1s linear"/></svg><span>Next check <b class="mono" id="rt">05:00</b></span></button>
-    <button id="th" class="chip" aria-label="Switch light or dark theme">☾</button>
-  </div>
-</header>
-<main>
-  <section class="hero">
-    <div class="rings"><i></i><i style="animation-delay:2.3s"></i><i style="animation-delay:4.6s"></i></div>
-    <p class="kick">🇮🇳 India · 🇦🇪 UAE · No sign-up needed</p>
-    <h1>Find halal stocks<br><span id="rw">in seconds</span></h1>
-    <p class="sub">Search a company, pick an industry, and open its live chart with one tap. Every stock comes from a published Shariah screen.</p>
-    <div class="sb"><input id="q" type="text" autocomplete="off" aria-label="Search stocks" placeholder="Search a company, symbol or industry…"><kbd>/</kbd></div>
-    <p class="meta" id="mt"></p>
-  </section>
-  <section class="stats rv" id="st"></section>
-  <section class="card sp rv" id="sp">
-    <div class="sph"><h3>🎯 Strategy scanner</h3><span class="cnt" id="spm"></span></div>
-    <div class="row" id="pre"></div>
-    <div class="row" id="rul"></div>
-    <div class="row"><button class="chip on" id="run">▶ Re-scan now</button></div>
-    <div class="lk" id="lk"><div><b>Not scanned yet.</b><br>This preview only has the halal <i>list</i> — no price data — so it can't tell you which stocks fit a strategy, and it won't pretend to. Deploy the kit (see the README) and this panel switches on by itself.</div></div>
-  </section>
-  <div class="mq rv"><div class="tk" id="tk"></div></div>
-  <section class="flt rv">
-    <div class="row" id="cc"></div>
-    <div class="row" id="ic"></div>
-    <div class="cnt" id="cnt"></div>
-  </section>
-  <section class="grid" id="g"></section>
-  <div class="row" style="justify-content:center;margin:18px 0"><button class="chip" id="more" hidden></button></div>
-  <section class="ins rv">
-    <div class="card"><h3>India vs UAE</h3><div id="dn"></div></div>
-    <div class="card"><h3>Biggest industries <span class="cnt">(tap to filter)</span></h3><div id="bs"></div></div>
-    <div class="card"><h3>What do the labels mean?</h3>
-      <dl>
-        <dt>200 EMA</dt><dd>Price is above its 200-day average: a long-term uptrend.</dd>
-        <dt>Trend</dt><dd>The 9-day average is above the 20-day average: momentum is up.</dd>
-        <dt>Volume</dt><dd>In the last 5 days, trading was at least 2× normal: unusual interest.</dd>
-        <dt>Order block</dt><dd>Price recently returned to a zone where buyers stepped in before.</dd>
-        <dt>Score</dt><dd>0–100 mix of trend, momentum, closeness to the 52-week high and volume.</dd>
-        <dt>PV / SPV</dt><dd>PV = 200 EMA + Trend + Order block. SPV = PV + Volume + Score ≥ 70. (Starter rules — you can change them.)</dd>
-      </dl>
-    </div>
-  </section>
-  <section class="card rv"><h3>How fresh is this data?</h3><ul class="inf" id="fr"></ul></section>
-  <details class="card rv" style="margin-top:14px"><summary>➕ Add more stocks (saved only in your browser)</summary>
-    <p class="cnt">One per line: SYMBOL, Company, Industry, Exchange (NSE, BSE, DFM or ADX)</p>
-    <textarea id="ta" rows="4" placeholder="SYMBOL, Company name, Industry, NSE"></textarea>
-    <div class="row"><button class="chip on" id="ad">Add to list</button><button class="chip" id="cl">Remove my additions</button></div>
-  </details>
-</main>
-<footer>
-  For learning only — not financial or religious advice. Halal status comes from third-party screens and changes over time (NSE reviews its Shariah indices every month); confirm with your own scholar or a screener such as Musaffa before you invest. Tap “verify” on any card for a quick cross-check.<br>
-  Sources: <a href="https://niftyindices.com/indices/equity/thematic-indices/nifty500-shariah" target="_blank" rel="noopener noreferrer">NSE Nifty500 Shariah</a> · <a href="https://academy.musaffa.com/halal-dfmgi-stocks/" target="_blank" rel="noopener noreferrer">Musaffa: halal DFMGI stocks</a> · <a href="https://www.wam.ae/en/article/c0vc46y-adx-welcomes-pioneering-gcc-shariah-dividend-etf" target="_blank" rel="noopener noreferrer">ADX / Solactive GCC Shariah index</a>
-</footer>
-<div class="sw" id="sw"></div><div class="ts" id="ts"></div>
-<script>
-/* --- starter halal list (used until the daily job creates data/stocks.json) --- */
-const IN=`3MINDIA~3M India~I;APLAPOLLO~APL Apollo Tubes~X;ACE~Action Construction Equipment~I;ATGL~Adani Total Gas~E;ABFRL~Aditya Birla Fashion & Retail~R;AFCONS~Afcons Infrastructure~I;AJANTPHARM~Ajanta Pharma~H;ALKEM~Alkem Laboratories~H;AMBER~Amber Enterprises~D;ANANTRAJ~Anant Raj~Q;APARINDS~Apar Industries~I;APOLLOTYRE~Apollo Tyres~A;ASIANPAINT~Asian Paints~M;ASTERDM~Aster DM Healthcare~H;ASTRAL~Astral~M;ATUL~Atul~K;AUROPHARMA~Aurobindo Pharma~H;DMART~Avenue Supermarts~R;BALKRISIND~Balkrishna Industries~A;BATAINDIA~Bata India~R;BAYERCROP~Bayer CropScience~K;BERGEPAINT~Berger Paints~M;BHEL~BHEL~I;BPCL~BPCL~E;BIKAJI~Bikaji Foods~C;BSOFT~Birlasoft~T;BLUEDART~Blue Dart Express~P;BLUEJET~Blue Jet Healthcare~H;BLUESTARCO~Blue Star~D;BRAINBEES~Brainbees Solutions (FirstCry)~R;BRITANNIA~Britannia Industries~C;CEATLTD~CEAT~A;CGPOWER~CG Power & Industrial~I;CRISIL~CRISIL~S;CARBORUNIV~Carborundum Universal~I;CASTROLIND~Castrol India~E;CEMPRO~Cemindia Projects~I;CHAMBLFERT~Chambal Fertilisers~K;CHENNPETRO~Chennai Petroleum (CPCL)~E;CIPLA~Cipla~H;COFORGE~Coforge~T;COLPAL~Colgate-Palmolive India~C;CONCORDBIO~Concord Biotech~H;COROMANDEL~Coromandel International~K;CROMPTON~Crompton Greaves Consumer~D;CUMMINSIND~Cummins India~I;CYIENT~Cyient~T;DALBHARAT~Dalmia Bharat~M;DEEPAKNTR~Deepak Nitrite~K;DIXON~Dixon Technologies~D;DOMS~DOMS Industries~C;DRREDDY~Dr Reddy's Laboratories~H;ELECON~Elecon Engineering~I;ELGIEQUIP~Elgi Equipments~I;EMAMILTD~Emami~C;EMCURE~Emcure Pharmaceuticals~H;ENDURANCE~Endurance Technologies~A;EXIDEIND~Exide Industries~A;FINCABLES~Finolex Cables~I;FSL~Firstsource Solutions~S;FORCEMOT~Force Motors~A;FORTIS~Fortis Healthcare~H;GAIL~GAIL (India)~E;GABRIEL~Gabriel India~A;GALLANTT~Gallantt Ispat~X;GILLETTE~Gillette India~C;GLENMARK~Glenmark Pharmaceuticals~H;MEDANTA~Global Health (Medanta)~H;GPIL~Godawari Power & Ispat~X;GODREJCP~Godrej Consumer Products~C;GRANULES~Granules India~H;GRAVITA~Gravita India~X;FLUOROCHEM~Gujarat Fluorochemicals~K;HCLTECH~HCL Technologies~T;HEG~HEG~I;HFCL~HFCL~N;HAVELLS~Havells India~D;HEROMOTOCO~Hero MotoCorp~A;HEXT~Hexaware Technologies~T;HSCL~Himadri Speciality Chemical~K;HINDALCO~Hindalco Industries~X;HINDCOPPER~Hindustan Copper~X;HINDUNILVR~Hindustan Unilever~C;POWERINDIA~Hitachi Energy India~I;HYUNDAI~Hyundai Motor India~A;ITI~ITI~N;IGL~Indraprastha Gas~E;INDUSTOWER~Indus Towers~N;INFY~Infosys~T;INOXWIND~Inox Wind~I;IPCALAB~Ipca Laboratories~H;JBCHEPHARM~J.B. Chemicals & Pharma~H;JINDALSAW~Jindal Saw~X;JSL~Jindal Stainless~X;JINDALSTEL~Jindal Steel~X;JUBLINGREA~Jubilant Ingrevia~K;JUBLPHARMA~Jubilant Pharmova~H;JWL~Jupiter Wagons~I;JYOTICNC~Jyoti CNC Automation~I;KEC~KEC International~I;KEI~KEI Industries~I;KPITTECH~KPIT Technologies~T;KAJARIACER~Kajaria Ceramics~M;KPIL~Kalpataru Projects~I;LTFOODS~LT Foods~C;LTTS~L&T Technology Services~T;LTM~LTM (formerly LTIMindtree)~T;LINDEINDIA~Linde India~K;LLOYDSME~Lloyds Metals & Energy~X;LODHA~Lodha Developers~Q;LUPIN~Lupin~H;MRF~MRF~A;MGL~Mahanagar Gas~E;MARICO~Marico~C;MAXHEALTH~Max Healthcare~H;MSUMI~Motherson Sumi Wiring~A;MPHASIS~Mphasis~T;NBCC~NBCC (India)~I;NCC~NCC~I;NSLNISP~NMDC Steel~X;NATIONALUM~National Aluminium~X;NAVA~Nava~I;NESTLEIND~Nestle India~C;NETWEB~Netweb Technologies~T;NEULANDLAB~Neuland Laboratories~H;NUVOCO~Nuvoco Vistas~M;ONGC~ONGC~E;OLECTRA~Olectra Greentech~A;PGEL~PG Electroplast~D;PAGEIND~Page Industries~L;PATANJALI~Patanjali Foods~C;PERSISTENT~Persistent Systems~T;PETRONET~Petronet LNG~E;PIDILITIND~Pidilite Industries~K;POLYCAB~Polycab India~I;RRKABEL~R R Kabel~I;RHIM~RHI Magnesita India~M;RVNL~Rail Vikas Nigam~I;RAILTEL~RailTel Corporation~N;REDINGTON~Redington~S;SRF~SRF~K;SAGILITY~Sagility~S;SAILIFE~Sai Life Sciences~H;MOTHERSON~Samvardhana Motherson~A;SCHAEFFLER~Schaeffler India~A;SCI~Shipping Corporation of India~P;SHYAMMETL~Shyam Metalics~X;SOBHA~Sobha~Q;SONATSOFTW~Sonata Software~T;SAIL~SAIL~X;SUNPHARMA~Sun Pharma~H;SUPREMEIND~Supreme Industries~M;SPLPETRO~Supreme Petrochem~K;SUZLON~Suzlon Energy~I;SWIGGY~Swiggy~R;SYNGENE~Syngene International~H;SYRMA~Syrma SGS Technology~D;TBOTEK~TBO Tek~S;TATACHEM~Tata Chemicals~K;TCS~TCS~T;TATACONSUM~Tata Consumer Products~C;TMPV~Tata Motors Passenger Vehicles~A;TATATECH~Tata Technologies~T;TECHM~Tech Mahindra~T;TEGA~Tega Industries~I;BBTC~Bombay Burmah Trading~C;THERMAX~Thermax~I;TIMKEN~Timken India~I;TITAGARH~Titagarh Rail Systems~I;TORNTPHARM~Torrent Pharma~H;TORNTPOWER~Torrent Power~U;TARIL~Transformers & Rectifiers India~I;TRENT~Trent~R;TRIDENT~Trident~L;TIINDIA~Tube Investments~A;ULTRACEMCO~UltraTech Cement~M;UNOMINDA~Uno Minda~A;USHAMART~Usha Martin~X;VTL~Vardhman Textiles~L;VMM~Vishal Mega Mart~R;VOLTAS~Voltas~D;WELCORP~Welspun Corp~X;WELSPUNLIV~Welspun Living~L;WHIRLPOOL~Whirlpool India~D;WOCKPHARMA~Wockhardt~H;ZYDUSLIFE~Zydus Lifesciences~H;ZYDUSWELL~Zydus Wellness~C;ECLERX~eClerx Services~S`.split(';').map(r=>r.split('~'));
-const AE=`DEWA~Dubai Electricity & Water Authority~U~DFM~m~Near the debt limit, some screens disagree. Re-check.;EMPOWER~Empower (district cooling)~U~DFM~m;DIB~Dubai Islamic Bank~F~DFM~m;DU~du (Emirates Integrated Telecom)~N~DFM~m;SALIK~Salik (Dubai tolls)~P~DFM~m;PARKIN~Parkin (Dubai parking)~P~DFM~m;AIRARABIA~Air Arabia~P~DFM~m;ARAMEX~Aramex~P~DFM~m;DTC~Dubai Taxi Company~P~DFM~m;EMAAR~Emaar Properties~Q~DFM~m;EMAARDEV~Emaar Development~Q~DFM~m;ADIB~Abu Dhabi Islamic Bank~F~ADX~m;SIB~Sharjah Islamic Bank~F~ADX~s;BOROUGE~Borouge~K~ADX~s;DANA~Dana Gas~E~ADX~s;LULU~Lulu Retail~R~ADX~s`.split(';').map(r=>r.split('~'));
-const CODE={T:'Tech',H:'Healthcare',C:'Consumer goods',D:'Consumer durables',R:'Retail',E:'Energy',M:'Materials',X:'Metals',I:'Industrials',A:'Auto',L:'Textiles',U:'Utilities',N:'Telecom',P:'Transport',Q:'Real estate',K:'Chemicals',S:'Services',F:'Banking'};
-const SRC={n:['Official index','NSE Nifty500 Shariah'],m:['Screener','Musaffa (AAOIFI)'],s:['Official index','Solactive GCC Shariah'],a:['Auto-screen','AAOIFI-style ratios'],u:['Added by you','']};
-const RULES=[['above200','Above 200 EMA','Price is above its 200-day average: long-term uptrend','200 EMA'],['trend','Trend up (9 > 20)','9-day average above the 20-day average: momentum is up','Trend'],['vol','Volume surge ×2','Volume in the last 5 days was at least 2× normal','Volume'],['ob','Order-block retest','Price recently came back to a zone where buyers stepped in before','Order block'],['score','Score ≥ 70','0–100 mix of trend, momentum, closeness to 52-week high and volume','Score']];
-const TEST={above200:s=>s.a,trend:s=>s.t,vol:s=>s.vs,ob:s=>s.r,score:s=>s.sc>=70};
-const BASE=[...IN.map(a=>({s:a[0],n:a[1],i:CODE[a[2]],x:'NSE',c:'IN',r:'n'})),...AE.map(a=>({s:a[0],n:a[1],i:CODE[a[2]],x:a[3],c:'AE',r:a[4],w:a[5]}))];
-let extra=[];try{extra=JSON.parse(localStorage.getItem('hx')||'[]')}catch(e){}
-let ALL=[],META={},HAS=false;
-const S={q:'',c:'ALL',i:'ALL',src:'ALL',pre:'all',on:[],lim:60};
-const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,m=>'&#'+m.charCodeAt(0)+';'),fm=n=>Number(n).toLocaleString(undefined,{maximumFractionDigits:2});
-const tv=u=>'https://'+(u.c==='IN'?'in':'www')+'.tradingview.com/chart/?symbol='+u.x+':'+encodeURIComponent(u.s);
-const MF={NSE:'NS',DFM:'DB',ADX:'AD'};
-const vf=u=>MF[u.x]?'https://musaffa.com/stock/'+encodeURIComponent(u.s)+'.'+MF[u.x]+'/':'https://musaffa.com/stock-screener/';
-const act=()=>S.pre!=='all'||S.on.length>0;
-function pass(u){if(!act())return true;const s=u.sig;if(!s)return false;if(S.pre==='pv'&&!s.tier)return false;if(S.pre==='spv'&&s.tier!=='SPV')return false;return S.on.every(k=>TEST[k](s))}
-const rk=u=>u.sig?(u.sig.tier==='SPV'?2000:u.sig.tier==='PV'?1000:0)+u.sig.sc:-1;
-function cu(el,to){const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0)}
-async function load(){
-  let d=null;try{const r=await fetch('data/stocks.json?_='+Date.now(),{cache:'no-store'});if(r.ok)d=await r.json()}catch(e){}
-  if(d&&Array.isArray(d.stocks)&&d.stocks.length){ALL=d.stocks.concat(extra);META=d.meta||{}}
-  else{ALL=BASE.concat(extra);META={checked:'28 Sep 2026'}}
-  HAS=ALL.some(u=>u.sig);
-}
-function list(){const q=S.q.trim().toLowerCase();const L=ALL.filter(u=>(S.c==='ALL'||u.c===S.c)&&(S.i==='ALL'||u.i===S.i)&&(S.src==='ALL'||u.r==='n'||u.r==='s')&&(!q||(u.s+' '+u.n+' '+u.i).toLowerCase().includes(q))&&pass(u));return HAS?L.sort((a,b)=>rk(b)-rk(a)):L}
-function spark(a){if(!a||a.length<2)return'';const mn=Math.min(...a),mx=Math.max(...a),w=120,h=28,p=a.map((v,i)=>(i/(a.length-1)*w).toFixed(1)+','+(h-(v-mn)/(mx-mn||1)*h).toFixed(1)).join(' ');return `<svg class="spk" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${p}" pathLength="1"/></svg>`}
-function sg(u){const s=u.sig;if(!s)return`<div class="ns">Not scanned yet</div>`;
-  return `<div class="pr mono">${fm(s.c)} <small class="${s.p>=0?'gn':'rd'}">${s.p>=0?'▲':'▼'} ${Math.abs(s.p).toFixed(2)}%</small></div>${spark(s.sp)}<div class="rl">${RULES.map(r=>{const y=TEST[r[0]](s);return `<span class="rc ${y?'y':'n'}" title="${r[2]}">${y?'✓':'✗'} ${r[0]==='score'?'Score '+s.sc:r[3]}</span>`}).join('')}</div>${s.ob?`<div class="obz mono">Order block ${fm(s.ob.lo)}–${fm(s.ob.hi)}${s.ob.t?' · touched '+s.ob.t:''}</div>`:''}`}
-function card(u,k){const s=u.sig,cf=SRC[u.r]||SRC.u;
-  return `<div class="c" style="--i:${k%30}"><div class="r1"><a class="sym" href="${tv(u)}" target="_blank" rel="noopener noreferrer">${esc(u.s)} ↗</a><span class="rr">${s&&s.tier?`<span class="tr ${s.tier}">${s.tier}</span>`:''}<span class="ex ${esc(u.x)}">${esc(u.x)}</span></span></div><div class="nm">${esc(u.n)}</div>${sg(u)}<div class="r2"><span class="tg">${esc(u.i)}</span><span class="cf ${u.r==='a'||u.r==='u'?'mid':'hi'}" title="${esc(cf[1])}">✓ ${cf[0]}</span><a class="vf" href="${vf(u)}" target="_blank" rel="noopener noreferrer" title="Double-check halal status on Musaffa">verify ↗</a></div>${u.w?`<div class="wr">⚠ ${esc(u.w)}</div>`:''}</div>`}
-function render(){const L=list(),sh=L.slice(0,S.lim);
-  $('cnt').textContent=(act()?`${L.length} stock${L.length===1?'':'s'} match your rules`:`${L.length} halal stocks`)+(L.length>sh.length?` · showing ${sh.length}`:'');
-  $('g').innerHTML=sh.length?sh.map(card).join(''):`<p class="emp">${HAS&&act()?'No stocks match these rules right now. Loosen a rule or try another preset.':'No stocks match. Try a shorter search or clear the filters.'}</p>`;
-  const m=$('more');m.hidden=L.length<=S.lim;m.textContent=`Show ${Math.min(60,L.length-S.lim)} more`}
-function chips(){
-  $('cc').innerHTML=[['ALL','🌍 All'],['IN','🇮🇳 India'],['AE','🇦🇪 UAE']].map(([k,l])=>`<button class="chip ${S.c===k?'on':''}" data-c="${k}">${l}</button>`).join('')+`<button class="chip ${S.src==='off'?'on':''}" data-s="${S.src==='off'?'ALL':'off'}" title="Hide auto-screened and user-added stocks">🏛 Official lists only</button>`;
-  const m={};ALL.forEach(u=>m[u.i]=(m[u.i]||0)+1);
-  $('ic').innerHTML=`<button class="chip ${S.i==='ALL'?'on':''}" data-i="ALL">All industries</button>`+Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<button class="chip ${S.i===k?'on':''}" data-i="${esc(k)}">${esc(k)} · ${v}</button>`).join('')}
-function panel(){$('lk').hidden=HAS;$('sp').classList.toggle('off',!HAS);
-  $('pre').innerHTML=[['all','All halal stocks'],['pv','Perfect Vision (PV+)'],['spv','Super Perfect Vision (SPV)']].map(([k,l])=>`<button class="chip ${S.pre===k?'on':''}" data-p="${k}">${l}</button>`).join('');
-  $('rul').innerHTML=RULES.map(r=>`<button class="chip ${S.on.includes(r[0])?'on':''}" data-r="${r[0]}" title="${r[2]}">${r[1]}</button>`).join('');
-  $('spm').textContent=HAS?(act()?`${ALL.filter(pass).length} of ${ALL.length} halal stocks match`:'Pick a preset or tick rules to scan'):''}
-function stats(){const a=ALL.filter(u=>u.c==='IN').length,b=ALL.length-a,mt=HAS&&act()?ALL.filter(pass).length:null;
-  const cs=[['Halal stocks',ALL.length],['🇮🇳 India',a],['🇦🇪 UAE',b],[HAS?(act()?'Match your rules':'Pick rules to scan'):'Strategy scan · not connected',mt]];
-  $('st').innerHTML=cs.map(([l,v])=>`<div class="s"><b data-v="${v===null?'':v}">${v===null?'—':0}</b><span>${l}</span></div>`).join('');
-  document.querySelectorAll('#st b').forEach(e=>{if(e.dataset.v!=='')cu(e,+e.dataset.v)})}
-function ins(){const a=ALL.filter(u=>u.c==='IN').length,b=ALL.length-a,C=2*Math.PI*42;
-  $('dn').innerHTML=`<svg viewBox="0 0 100 100" class="dn"><circle cx="50" cy="50" r="42" fill="none" stroke="#10B981" stroke-width="10"/><circle id="dp" cx="50" cy="50" r="42" fill="none" stroke="#A855F7" stroke-width="10" transform="rotate(-90 50 50)" style="stroke-dasharray:0 ${C};transition:stroke-dasharray 1.3s cubic-bezier(.2,.8,.2,1)"/><text x="50" y="49" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="16" font-weight="700" fill="currentColor">${ALL.length}</text><text x="50" y="62" text-anchor="middle" font-size="7" fill="#94A3B8">stocks</text></svg><div class="lg"><span><i style="background:#A855F7"></i>India ${a}</span><span><i style="background:#10B981"></i>UAE ${b}</span></div>`;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{$('dp').style.strokeDasharray=(C*a/ALL.length)+' '+C}));
-  const m={};ALL.forEach(u=>m[u.i]=(m[u.i]||0)+1);const E=Object.entries(m).sort((x,y)=>y[1]-x[1]).slice(0,8),mx=E[0][1];
-  $('bs').innerHTML=E.map(([k,v])=>`<button class="br" data-i="${esc(k)}"><span class="rw"><span>${esc(k)}</span><b class="mono">${v}</b></span><span class="bt"><span class="bf" data-w="${v/mx*100}"></span></span></button>`).join('');
-  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.bf').forEach(e=>e.style.width=e.dataset.w+'%')))}
-function mq(){const t=ALL.slice().sort((a,b)=>rk(b)-rk(a)).slice(0,40).map(u=>`<a href="${tv(u)}" target="_blank" rel="noopener noreferrer">${u.c==='IN'?'🇮🇳':'🇦🇪'} ${esc(u.s)}</a>`).join('');$('tk').innerHTML=t+t}
-function meta(){const m=META;$('mt').textContent=HAS?`Prices as of ${m.asof||'?'} · halal list re-screened ${m.screened||'?'} · ${ALL.length} stocks`:`Preview mode · halal list checked ${m.checked||'recently'} · ${ALL.length} stocks · no price data connected`}
-function fresh(){const m=META,age=HAS&&m.asof?(Date.now()-new Date(m.asof))/864e5:0;
-  $('fr').innerHTML=HAS?`<li><b>📈 Prices</b> — end-of-day, as of ${esc(m.asof||'?')}. Updated once a day after the markets close.</li><li><b>✅ Halal list</b> — every stock is re-screened at least every 30 days (last pass: ${esc(m.screened||'?')}).</li><li><b>⏱ This page</b> — re-checks for new data every 5 minutes.</li>${age>5?'<li style="color:#FBBF24">⚠ The data looks old. Check that the daily job is still running (Actions tab on GitHub).</li>':''}`
-  :`<li><b>👀 Preview mode</b> — this copy only has the halal list, no prices. So it can't say which stocks fit a strategy.</li><li><b>✅ Halal list</b> — NSE Nifty500 Shariah members plus Musaffa and Solactive UAE lists, checked ${esc(m.checked||'recently')}. Status can change every month, so always re-check.</li><li><b>🚀 Turn on live scanning</b> — deploy the kit (README). A free cloud job then scans prices every weekday and re-screens stocks every 30 days.</li>`}
-function boot(){if(S.i!=='ALL'&&!ALL.some(u=>u.i===S.i))S.i='ALL';meta();panel();stats();chips();ins();mq();fresh();render()}
-let tt;function toast(m){const t=$('ts');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),4500)}
-async function refresh(){const w=$('sw');w.classList.remove('go');void w.offsetWidth;w.classList.add('go');await load();boot();const n=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});toast(HAS?`Data refreshed · prices as of ${META.asof}`:`Checked at ${n} · preview mode, no price data connected`)}
+<body class="min-h-screen flex flex-col">
 
-document.addEventListener('click',e=>{const b=e.target.closest('[data-c],[data-i],[data-p],[data-r],[data-s]');if(!b)return;const d=b.dataset;
-  if(d.c)S.c=d.c;if(d.i!==undefined)S.i=d.i;if(d.s)S.src=d.s;if(d.p)S.pre=d.p;
-  if(d.r)S.on=S.on.includes(d.r)?S.on.filter(x=>x!==d.r):S.on.concat(d.r);
-  S.lim=60;panel();stats();chips();render();if(b.classList.contains('br'))$('cnt').scrollIntoView({behavior:'smooth'})});
-$('q').oninput=e=>{S.q=e.target.value;S.lim=60;render()};
-$('more').onclick=()=>{S.lim+=60;render()};
-$('run').onclick=refresh;
-addEventListener('keydown',e=>{const t=document.activeElement.tagName,ty=t==='INPUT'||t==='TEXTAREA';if((e.key==='/'&&!ty)||((e.metaKey||e.ctrlKey)&&e.key==='k')){e.preventDefault();$('q').focus()}});
-$('th').onclick=()=>{const h=document.documentElement,l=h.dataset.theme==='light';h.dataset.theme=l?'dark':'light';$('th').textContent=l?'☾':'☀'};
-$('g').addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const c=e.target.closest('.c');if(!c)return;const b=c.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');c.style.transform=`perspective(700px) rotateX(${(.5-y)*7}deg) rotateY(${(x-.5)*7}deg)`});
-$('g').addEventListener('pointerout',e=>{const c=e.target.closest('.c');if(c&&!c.contains(e.relatedTarget))c.style.transform=''});
-$('ad').onclick=()=>{let n=0;$('ta').value.split('\n').map(l=>l.split(',').map(s=>s.trim())).filter(a=>a[0]).forEach(a=>{const x=(a[3]||'').toUpperCase(),c=(x==='NSE'||x==='BSE')?'IN':(x==='DFM'||x==='ADX')?'AE':null,s=a[0].toUpperCase();if(!c||ALL.some(u=>u.s===s&&u.x===x))return;extra.push({s,n:a[1]||s,i:a[2]||'Other',x,c,r:'u'});n++});try{localStorage.setItem('hx',JSON.stringify(extra))}catch(e){}load().then(()=>{boot();$('ta').value='';toast(n+' stock'+(n===1?'':'s')+' added (saved in this browser)')})};
-$('cl').onclick=()=>{extra=[];try{localStorage.removeItem('hx')}catch(e){}load().then(()=>{boot();toast('Your added stocks were removed')})};
+    <!-- TOP HEADER -->
+    <header class="border-b border-slate-800 bg-[#0D111D] px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <h1 class="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-sky-400 to-emerald-400">
+                All Scanner by CapsuleAcademy™
+            </h1>
+        </div>
+        <div class="flex items-center gap-4 text-xs font-mono">
+            <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full text-slate-300 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Auto-Refresh: Active
+            </div>
+            <button onclick="location.reload()" class="bg-red-950/60 border border-red-800/80 hover:bg-red-900 text-red-200 px-4 py-1.5 rounded-lg transition font-semibold">
+                ← BACK
+            </button>
+        </div>
+    </header>
 
-/* 5-minute auto-check */
-let T=300,pz=false;const R=62.83;
-function paint(){$('rt').textContent=pz?'paused':String(T/60|0).padStart(2,'0')+':'+String(T%60).padStart(2,'0');$('rc').style.strokeDashoffset=R*(1-T/300)}
-setInterval(()=>{if(pz)return;T--;if(T<0){T=300;refresh()}paint()},1000);
-$('rb').onclick=()=>{pz=!pz;paint()};
+    <!-- NAVIGATION & FILTERS BAR -->
+    <nav class="bg-[#131826] border-b border-slate-800 px-6 py-3 flex flex-col lg:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-6 w-full lg:w-auto">
+            <span class="font-bold text-sky-400 border-b-2 border-sky-400 pb-1 cursor-pointer">Dashboard</span>
+            <span class="text-slate-400 hover:text-white cursor-pointer transition">SMC</span>
+            <span class="text-slate-400 hover:text-white cursor-pointer transition">Capsule</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-end">
+            <div class="bg-[#0B0F19] border border-slate-800 p-1 rounded-lg flex items-center gap-1 text-xs">
+                <button class="bg-slate-800 text-white px-3 py-1 rounded-md font-medium">Daily Vision</button>
+                <button class="text-slate-400 hover:text-white px-3 py-1 rounded-md font-medium transition">Weekly Vision</button>
+                <button class="text-slate-400 hover:text-white px-3 py-1 rounded-md font-medium transition">Monthly Vision</button>
+            </div>
+            <input type="text" id="searchInput" placeholder="Search symbol, sector..." onkeyup="filterTable()" class="bg-[#0B0F19] border border-slate-800 text-sm rounded-lg px-4 py-1.5 text-slate-200 focus:outline-none focus:border-sky-500 w-60">
+        </div>
+    </nav>
 
-/* eye candy */
-const RW=['in seconds','in India 🇮🇳','in the UAE 🇦🇪','on your phone 📱'];let ri=0;
-setInterval(()=>{const e=$('rw');e.classList.add('sw2');setTimeout(()=>{ri=(ri+1)%RW.length;e.textContent=RW[ri];e.classList.remove('sw2')},350)},2800);
-addEventListener('scroll',()=>{const h=document.documentElement;$('pg').style.transform=`scaleX(${scrollY/((h.scrollHeight-innerHeight)||1)})`},{passive:true});
-addEventListener('pointermove',e=>{document.body.style.setProperty('--px',e.clientX+'px');document.body.style.setProperty('--py',e.clientY+'px')},{passive:true});
-const io='IntersectionObserver'in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.06}):null;
-document.querySelectorAll('.rv').forEach(e=>io?io.observe(e):e.classList.add('in'));
-(()=>{const c=$('fx'),x=c.getContext('2d'),still=matchMedia('(prefers-reduced-motion:reduce)').matches;let w,h,P=[];
-function rs(){w=c.width=innerWidth;h=c.height=innerHeight;P=Array.from({length:Math.min(60,w/24|0)},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4}))}
-addEventListener('resize',rs);rs();
-(function f(){x.clearRect(0,0,w,h);P.forEach((p,i)=>{if(!still){p.x=(p.x+p.vx+w)%w;p.y=(p.y+p.vy+h)%h}x.fillStyle='rgba(56,189,248,.75)';x.fillRect(p.x,p.y,2,2);for(let j=i+1;j<P.length;j++){const q=P[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(d<120){x.strokeStyle='rgba(168,85,247,'+(1-d/120)*.35+')';x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}}});if(!still)requestAnimationFrame(f)})()})();
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 p-6 max-w-[1600px] w-full mx-auto space-y-6">
 
-load().then(()=>{boot();paint()});
-</script>
+        <!-- KPI STATS GRID -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
+                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Universes Scanned</div>
+                <div id="statTotal" class="text-2xl font-bold font-mono text-white">0</div>
+            </div>
+            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
+                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">SPV (Super)</div>
+                <div id="statSPV" class="text-2xl font-bold font-mono text-purple-400">0</div>
+            </div>
+            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
+                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">PV (Perfect)</div>
+                <div id="statPV" class="text-2xl font-bold font-mono text-emerald-400">0</div>
+            </div>
+            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
+                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">High F-Score (>70)</div>
+                <div id="statFScore" class="text-2xl font-bold font-mono text-sky-400">0</div>
+            </div>
+            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
+                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Capsule Active</div>
+                <div id="statCapsule" class="text-2xl font-bold font-mono text-amber-400">0</div>
+            </div>
+            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
+                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Train (EMA 9/21)</div>
+                <div id="statTrain" class="text-2xl font-bold font-mono text-indigo-400">0</div>
+            </div>
+        </div>
+
+        <!-- SMC / STRATEGY TABLE CONTAINER -->
+        <div class="bg-[#131826] border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+            <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+                <h2 class="font-bold text-base text-slate-200">Strict Strategy Confluence Matrix</h2>
+                <span class="text-xs text-slate-400 font-mono">Click any Symbol to open TradingView chart ↗</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-[#0D111D] text-slate-400 uppercase text-[11px] font-mono tracking-wider border-b border-slate-800">
+                            <th class="py-3 px-4">Symbol</th>
+                            <th class="py-3 px-4">Vision</th>
+                            <th class="py-3 px-4">F_Score</th>
+                            <th class="py-3 px-4">Sector</th>
+                            <th class="py-3 px-4 text-right">Close</th>
+                            <th class="py-3 px-4 text-right">OB High</th>
+                            <th class="py-3 px-4 text-right">OB Low</th>
+                            <th class="py-3 px-4">OB Formed</th>
+                            <th class="py-3 px-4">Touch Date</th>
+                            <th class="py-3 px-4 text-right">Candle Low</th>
+                            <th class="py-3 px-4">Scan Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stockTableBody" class="divide-y divide-slate-800/60 font-mono text-xs">
+                        <tr>
+                            <td colspan="11" class="text-center py-8 text-slate-500">Loading live scan results...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-800/60 mt-auto">
+        All Scanner Engine v3.5 • Powered by GitHub Actions & Python Zero-Laptop Automation
+    </footer>
+
+    <!-- JAVASCRIPT DATA LOADER & TRADINGVIEW LINKING -->
+    <script>
+        async function loadStocks() {
+            try {
+                const response = await fetch('data/stocks.json?t=' + new Date().getTime());
+                if (!response.ok) throw new Error("No scan data found yet.");
+                const data = await response.json();
+
+                // Update Stats
+                document.getElementById('statTotal').innerText = data.length;
+                document.getElementById('statSPV').innerText = data.filter(s => s.vision === 'SPV').length;
+                document.getElementById('statPV').innerText = data.filter(s => s.vision === 'PV').length;
+                document.getElementById('statFScore').innerText = data.filter(s => s.f_score > 70).length;
+                document.getElementById('statCapsule').innerText = data.length;
+                document.getElementById('statTrain').innerText = data.length;
+
+                const tbody = document.getElementById('stockTableBody');
+                tbody.innerHTML = '';
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="11" class="text-center py-8 text-slate-500">No stocks matching strict 3-rule criteria in current scan.</td></tr>`;
+                    return;
+                }
+
+                data.forEach(stock => {
+                    // Direct TradingView Redirection Link Construction
+                    const tvExchange = stock.exchange || 'NSE';
+                    const tvUrl = `https://www.tradingview.com/chart/?symbol=${tvExchange}:${stock.symbol}`;
+
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-[#1A2035] transition duration-150';
+                    row.innerHTML = `
+                        <td class="py-3.5 px-4 font-bold">
+                            <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 flex items-center gap-1.5">
+                                ${stock.symbol} <span class="text-[10px]">↗</span>
+                            </a>
+                        </td>
+                        <td class="py-3.5 px-4">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${stock.vision === 'SPV' ? 'bg-purple-950 text-purple-300 border border-purple-800' : 'bg-emerald-950 text-emerald-300 border border-emerald-800'}">
+                                ${stock.vision}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-4 text-purple-300 font-semibold">${stock.f_score}</td>
+                        <td class="py-3.5 px-4 text-slate-300 font-sans">${stock.sector}</td>
+                        <td class="py-3.5 px-4 text-right text-slate-100 font-semibold">${stock.close.toLocaleString()}</td>
+                        <td class="py-3.5 px-4 text-right text-slate-300">${stock.ob_high.toLocaleString()}</td>
+                        <td class="py-3.5 px-4 text-right text-slate-300">${stock.ob_low.toLocaleString()}</td>
+                        <td class="py-3.5 px-4 text-slate-400">${stock.ob_formed}</td>
+                        <td class="py-3.5 px-4"><span class="bg-indigo-950/80 text-indigo-300 px-2 py-0.5 rounded border border-indigo-800 text-[10px]">${stock.touch_date}</span></td>
+                        <td class="py-3.5 px-4 text-right text-slate-300">${stock.candle_low.toLocaleString()}</td>
+                        <td class="py-3.5 px-4 text-slate-400 text-[11px]">${stock.scan_time}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('stockTableBody').innerHTML = `<tr><td colspan="11" class="text-center py-8 text-amber-400">Waiting for first background scan to complete. Run the workflow in GitHub Actions!</td></tr>`;
+            }
+        }
+
+        function filterTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.getElementById('stockTableBody').getElementsByTagName('tr');
+            for (let row of rows) {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            }
+        }
+
+        loadStocks();
+    </script>
 </body>
 </html>
