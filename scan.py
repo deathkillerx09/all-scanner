@@ -23,7 +23,6 @@ def main():
   )
 
   for item in tickers:
-    # Safely extract ticker attributes across dict, list, or string formats
     if isinstance(item, dict):
       symbol = item.get("symbol")
       name = item.get("name", symbol)
@@ -62,11 +61,9 @@ def main():
       ema_200 = float(df["EMA_200"].iloc[-1])
       ema_9 = float(df["EMA_9"].iloc[-1])
       ema_21 = float(df["EMA_21"].iloc[-1])
-      high_30d = float(df["High_30D"].iloc[-2])  # Completed 30D rolling high
+      high_30d = float(df["High_30D"].iloc[-2])
 
-      # ==========================================
-      # STRICT STRATEGY RULES CHECK
-      # ==========================================
+      # Strategy checks
       cond_200_ema = current_price > ema_200
       cond_trend = ema_9 > ema_21
       cond_strict_breakout = current_price >= high_30d
@@ -91,24 +88,26 @@ def main():
       if cond_200_ema and cond_trend:
         if cond_strict_breakout:
           strict_results.append(stock_data)
-          print(f"[STRICT MATCH] {symbol} meets all 3 strict rules!")
         elif cond_near_breakout:
           near_results.append(stock_data)
 
     except Exception as e:
       print(f"Error processing {symbol}: {e}")
 
-  # Use strict breakout results if available; otherwise populate with near-breakout setups
   final_results = (
       strict_results if len(strict_results) > 0 else near_results[:15]
   )
 
+  # Save to both paths to prevent frontend script path mismatches
   os.makedirs("data", exist_ok=True)
   with open("data/stocks.json", "w") as f:
     json.dump(final_results, f, indent=4)
+  with open("data/data.json", "w") as f:
+    json.dump(final_results, f, indent=4)
 
   print(
-      f"Scan complete. Outputting {len(final_results)} stocks to data/stocks.json."
+      "Scan complete. Saved"
+      f" {len(final_results)} stocks to data/stocks.json and data/data.json."
   )
 
 
