@@ -193,5 +193,29 @@
 
         loadStocks();
     </script>
+<script>
+    // Wire up your existing tabs and buttons so they become clickable
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Make Dashboard, SMC, Capsule tabs interactive
+        const mainTabs = document.querySelectorAll('header button, nav button, .dashboard-tabs button');
+        mainTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                mainTabs.forEach(t => t.classList.remove('active', 'border-b-2'));
+                e.currentTarget.classList.add('active');
+            });
+        });
+
+        // 2. Make Vision buttons (Daily, Weekly, Monthly) interactive
+        const visionBtns = document.querySelectorAll('.vision-btn, [id*="Vision"], button');
+        visionBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (e.target.textContent.includes('Vision')) {
+                    visionBtns.forEach(b => b.classList.remove('active', 'bg-slate-700'));
+                    e.target.classList.add('active', 'bg-slate-700');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
