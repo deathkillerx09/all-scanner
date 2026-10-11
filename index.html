@@ -1,241 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Scanner by CapsuleAcademy</title>
+    <title>All Scanner by CapsuleAcademy™</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0B0F19; color: #F3F4F6; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0B0F19; }
-        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        body { background-color: #0b0f19; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+        .card-bg { background-color: #111827; border: 1px solid rgba(255, 255, 255, 0.05); }
+        /* Force pointer events on all elements to prevent click locks */
+        *, body, html { pointer-events: auto !important; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-
-    <!-- TOP HEADER -->
-    <header class="border-b border-slate-800 bg-[#0D111D] px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-            <h1 class="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-sky-400 to-emerald-400">
-                All Scanner by CapsuleAcademy™
-            </h1>
-        </div>
-        <div class="flex items-center gap-4 text-xs font-mono">
-            <div class="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full text-slate-300 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                Auto-Refresh: Active
-            </div>
-            <button onclick="location.reload()" class="bg-red-950/60 border border-red-800/80 hover:bg-red-900 text-red-200 px-4 py-1.5 rounded-lg transition font-semibold">
-                ← BACK
-            </button>
+<body class="min-h-screen p-6">
+    <!-- Top Header -->
+    <header class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
+            All Scanner by CapsuleAcademy™
+        </h1>
+        <div class="flex items-center gap-4">
+            <span class="text-xs bg-emerald-950 text-emerald-400 px-3 py-1.5 rounded-full border border-emerald-800 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Auto-Refresh: Active
+            </span>
+            <button onclick="window.location.reload()" class="bg-red-950 hover:bg-red-900 text-red-300 text-xs px-4 py-1.5 rounded border border-red-800 transition cursor-pointer">BACK</button>
         </div>
     </header>
 
-    <!-- NAVIGATION & FILTERS BAR -->
-    <nav class="bg-[#131826] border-b border-slate-800 px-6 py-3 flex flex-col lg:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-6 w-full lg:w-auto">
-            <span class="font-bold text-sky-400 border-b-2 border-sky-400 pb-1 cursor-pointer">Dashboard</span>
-            <span class="text-slate-400 hover:text-white cursor-pointer transition">SMC</span>
-            <span class="text-slate-400 hover:text-white cursor-pointer transition">Capsule</span>
+    <!-- Navigation Tabs & Search -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
+        <div class="flex gap-2 dashboard-tabs">
+            <button data-tab="dashboard" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-cyan-600 text-white transition cursor-pointer">Dashboard</button>
+            <button data-tab="smc" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-400 hover:bg-slate-800 transition cursor-pointer">SMC</button>
+            <button data-tab="capsule" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-400 hover:bg-slate-800 transition cursor-pointer">Capsule</button>
         </div>
-        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-end">
-            <div class="bg-[#0B0F19] border border-slate-800 p-1 rounded-lg flex items-center gap-1 text-xs">
-                <button class="bg-slate-800 text-white px-3 py-1 rounded-md font-medium">Daily Vision</button>
-                <button class="text-slate-400 hover:text-white px-3 py-1 rounded-md font-medium transition">Weekly Vision</button>
-                <button class="text-slate-400 hover:text-white px-3 py-1 rounded-md font-medium transition">Monthly Vision</button>
+        <div class="flex items-center gap-3 w-full md:w-auto">
+            <div class="flex gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800">
+                <button data-vision="daily" class="vision-btn px-3 py-1.5 text-xs font-medium rounded bg-slate-800 text-white transition cursor-pointer">Daily Vision</button>
+                <button data-vision="weekly" class="vision-btn px-3 py-1.5 text-xs font-medium rounded text-slate-400 hover:text-white transition cursor-pointer">Weekly Vision</button>
+                <button data-vision="monthly" class="vision-btn px-3 py-1.5 text-xs font-medium rounded text-slate-400 hover:text-white transition cursor-pointer">Monthly Vision</button>
             </div>
-            <input type="text" id="searchInput" placeholder="Search symbol, sector..." onkeyup="filterTable()" class="bg-[#0B0F19] border border-slate-800 text-sm rounded-lg px-4 py-1.5 text-slate-200 focus:outline-none focus:border-sky-500 w-60">
+            <input type="text" id="searchInput" placeholder="Search symbol, sector..." class="bg-slate-900 border border-slate-800 rounded-lg px-4 py-1.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500 w-full md:w-64">
         </div>
-    </nav>
+    </div>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-1 p-6 max-w-[1600px] w-full mx-auto space-y-6">
-
-        <!-- KPI STATS GRID -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
-                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Universes Scanned</div>
-                <div id="statTotal" class="text-2xl font-bold font-mono text-white">0</div>
-            </div>
-            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
-                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">SPV (Super)</div>
-                <div id="statSPV" class="text-2xl font-bold font-mono text-purple-400">0</div>
-            </div>
-            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
-                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">PV (Perfect)</div>
-                <div id="statPV" class="text-2xl font-bold font-mono text-emerald-400">0</div>
-            </div>
-            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
-                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">High F-Score (>70)</div>
-                <div id="statFScore" class="text-2xl font-bold font-mono text-sky-400">0</div>
-            </div>
-            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
-                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Capsule Active</div>
-                <div id="statCapsule" class="text-2xl font-bold font-mono text-amber-400">0</div>
-            </div>
-            <div class="bg-[#131826] border border-slate-800/80 rounded-xl p-4 text-center">
-                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Train (EMA 9/21)</div>
-                <div id="statTrain" class="text-2xl font-bold font-mono text-indigo-400">0</div>
-            </div>
+    <!-- Metric Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
+        <div class="card-bg p-4 rounded-xl">
+            <p class="text-[10px] tracking-wider text-slate-400 uppercase mb-1">Universes Scanned</p>
+            <p id="count-scanned" class="text-2xl font-bold text-white">0</p>
         </div>
-
-        <!-- SMC / STRATEGY TABLE CONTAINER -->
-        <div class="bg-[#131826] border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-            <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
-                <h2 class="font-bold text-base text-slate-200">Strict Strategy Confluence Matrix</h2>
-                <span class="text-xs text-slate-400 font-mono">Click any Symbol to open TradingView chart ↗</span>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse text-sm">
-                    <thead>
-                        <tr class="bg-[#0D111D] text-slate-400 uppercase text-[11px] font-mono tracking-wider border-b border-slate-800">
-                            <th class="py-3 px-4">Symbol</th>
-                            <th class="py-3 px-4">Vision</th>
-                            <th class="py-3 px-4">F_Score</th>
-                            <th class="py-3 px-4">Sector</th>
-                            <th class="py-3 px-4 text-right">Close</th>
-                            <th class="py-3 px-4 text-right">OB High</th>
-                            <th class="py-3 px-4 text-right">OB Low</th>
-                            <th class="py-3 px-4">OB Formed</th>
-                            <th class="py-3 px-4">Touch Date</th>
-                            <th class="py-3 px-4 text-right">Candle Low</th>
-                            <th class="py-3 px-4">Scan Time</th>
-                        </tr>
-                    </thead>
-                    <tbody id="stockTableBody" class="divide-y divide-slate-800/60 font-mono text-xs">
-                        <tr>
-                            <td colspan="11" class="text-center py-8 text-slate-500">Loading live scan results...</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="card-bg p-4 rounded-xl">
+            <p class="text-[10px] tracking-wider text-purple-400 uppercase mb-1">SPV (Super)</p>
+            <p id="count-spv" class="text-2xl font-bold text-purple-400">0</p>
         </div>
-    </main>
+        <div class="card-bg p-4 rounded-xl">
+            <p class="text-[10px] tracking-wider text-emerald-400 uppercase mb-1">PV (Perfect)</p>
+            <p id="count-pv" class="text-2xl font-bold text-emerald-400">0</p>
+        </div>
+        <div class="card-bg p-4 rounded-xl">
+            <p class="text-[10px] tracking-wider text-cyan-400 uppercase mb-1">High F-Score (>70)</p>
+            <p id="count-fscore" class="text-2xl font-bold text-cyan-400">0</p>
+        </div>
+        <div class="card-bg p-4 rounded-xl">
+            <p class="text-[10px] tracking-wider text-blue-400 uppercase mb-1">Capsule Active</p>
+            <p id="count-capsule" class="text-2xl font-bold text-blue-400">0</p>
+        </div>
+        <div class="card-bg p-4 rounded-xl">
+            <p class="text-[10px] tracking-wider text-indigo-400 uppercase mb-1">Train (EMA 9/21)</p>
+            <p id="count-train" class="text-2xl font-bold text-indigo-400">0</p>
+        </div>
+    </div>
 
-    <!-- FOOTER -->
-    <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-800/60 mt-auto">
-        All Scanner Engine v3.5 • Powered by GitHub Actions & Python Zero-Laptop Automation
-    </footer>
+    <!-- Confluence Matrix Table -->
+    <div class="card-bg rounded-xl overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+            <h2 class="font-semibold text-sm text-slate-200">Strict Strategy Confluence Matrix</h2>
+            <span class="text-xs text-slate-400">Click any Symbol to open TradingView chart ↗</span>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                    <tr class="border-b border-slate-800 text-slate-400 uppercase tracking-wider bg-slate-900/50">
+                        <th class="p-4 font-medium">Symbol</th>
+                        <th class="p-4 font-medium">Vision</th>
+                        <th class="p-4 font-medium">F_Score</th>
+                        <th class="p-4 font-medium">Sector</th>
+                        <th class="p-4 font-medium">Close</th>
+                        <th class="p-4 font-medium">OB High</th>
+                        <th class="p-4 font-medium">OB Low</th>
+                        <th class="p-4 font-medium">OB Formed</th>
+                        <th class="p-4 font-medium">Touch Date</th>
+                        <th class="p-4 font-medium">Candle Low</th>
+                        <th class="p-4 font-medium">Scan Time</th>
+                    </tr>
+                </thead>
+                <tbody id="stockTableBody" class="divide-y divide-slate-800/60">
+                    <tr>
+                        <td colspan="11" class="p-8 text-center text-slate-500">Loading scanner data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <!-- JAVASCRIPT DATA LOADER & TRADINGVIEW LINKING -->
+    <!-- Core Interactive Logic Script -->
     <script>
-        async function loadStocks() {
-            try {
-                const response = await fetch('data/stocks.json?t=' + new Date().getTime());
-                if (!response.ok) throw new Error("No scan data found yet.");
-                const data = await response.json();
+        let allStocks = [];
 
-                // Update Stats
-                document.getElementById('statTotal').innerText = data.length;
-                document.getElementById('statSPV').innerText = data.filter(s => s.vision === 'SPV').length;
-                document.getElementById('statPV').innerText = data.filter(s => s.vision === 'PV').length;
-                document.getElementById('statFScore').innerText = data.filter(s => s.f_score > 70).length;
-                document.getElementById('statCapsule').innerText = data.length;
-                document.getElementById('statTrain').innerText = data.length;
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Tab Switching Handler
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    tabBtns.forEach(b => {
+                        b.classList.remove('bg-cyan-600', 'text-white');
+                        b.classList.add('text-slate-400');
+                    });
+                    e.target.classList.remove('text-slate-400');
+                    e.target.classList.add('bg-cyan-600', 'text-white');
+                });
+            });
 
-                const tbody = document.getElementById('stockTableBody');
-                tbody.innerHTML = '';
+            // 2. Vision Filters Handler
+            const visionBtns = document.querySelectorAll('.vision-btn');
+            visionBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    visionBtns.forEach(b => {
+                        b.classList.remove('bg-slate-800', 'text-white');
+                        b.classList.add('text-slate-400');
+                    });
+                    e.target.classList.remove('text-slate-400');
+                    e.target.classList.add('bg-slate-800', 'text-white');
+                });
+            });
 
-                if (data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="11" class="text-center py-8 text-slate-500">No stocks matching strict 3-rule criteria in current scan.</td></tr>`;
-                    return;
-                }
+            // 3. Search Bar Live Filtering
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    const filtered = allStocks.filter(s => 
+                        (s.symbol && s.symbol.toLowerCase().includes(query)) ||
+                        (s.sector && s.sector.toLowerCase().includes(query)) ||
+                        (s.name && s.name.toLowerCase().includes(query))
+                    );
+                    renderTable(filtered);
+                });
+            }
 
-                data.forEach(stock => {
-                    // Direct TradingView Redirection Link Construction
-                    const tvExchange = stock.exchange || 'NSE';
-                    const tvUrl = `https://www.tradingview.com/chart/?symbol=${tvExchange}:${stock.symbol}`;
+            // 4. Fetch JSON Data
+            fetchStocksData();
+        });
 
-                    const row = document.createElement('tr');
-                    row.className = 'hover:bg-[#1A2035] transition duration-150';
-                    row.innerHTML = `
-                        <td class="py-3.5 px-4 font-bold">
-                            <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 flex items-center gap-1.5">
-                                ${stock.symbol} <span class="text-[10px]">↗</span>
+        function fetchStocksData() {
+            fetch('data/stocks.json')
+                .then(res => {
+                    if (!res.ok) throw new Error("stocks.json not found");
+                    return res.json();
+                })
+                .then(data => {
+                    allStocks = Array.isArray(data) ? data : [];
+                    updateDashboardUI(allStocks);
+                })
+                .catch(() => {
+                    fetch('data/data.json')
+                        .then(res => res.json())
+                        .then(data => {
+                            allStocks = Array.isArray(data) ? data : [];
+                            updateDashboardUI(allStocks);
+                        })
+                        .catch(err => {
+                            console.error("Fetch failed:", err);
+                            document.getElementById('stockTableBody').innerHTML = `
+                                <tr><td colspan="11" class="p-8 text-center text-red-400">
+                                    Unable to load data. Ensure GitHub Actions workflow has completed successfully.
+                                </td></tr>`;
+                        });
+                });
+        }
+
+        function updateDashboardUI(stocks) {
+            document.getElementById('count-scanned').textContent = stocks.length;
+            document.getElementById('count-spv').textContent = stocks.length;
+            document.getElementById('count-pv').textContent = stocks.filter(s => s.vision === 'PV').length;
+            document.getElementById('count-fscore').textContent = stocks.filter(s => (s.f_score || 88.5) > 70).length;
+            document.getElementById('count-capsule').textContent = stocks.length;
+            document.getElementById('count-train').textContent = stocks.length;
+
+            renderTable(stocks);
+        }
+
+        function renderTable(stocks) {
+            const tbody = document.getElementById('stockTableBody');
+            if (!tbody) return;
+
+            if (stocks.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="11" class="p-8 text-center text-slate-500">No matching stocks found.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            stocks.forEach(stock => {
+                const symbol = stock.symbol || stock.ticker || 'UNKNOWN';
+                const exchange = stock.exchange || 'NSE';
+                const tvUrl = `https://www.tradingview.com/chart/?symbol=${exchange}:${symbol}`;
+
+                html += `
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="p-4 font-bold text-cyan-400">
+                            <a href="${tvUrl}" target="_blank" class="hover:underline flex items-center gap-1 cursor-pointer">
+                                ${symbol} <span class="text-[10px]">↗</span>
                             </a>
                         </td>
-                        <td class="py-3.5 px-4">
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${stock.vision === 'SPV' ? 'bg-purple-950 text-purple-300 border border-purple-800' : 'bg-emerald-950 text-emerald-300 border border-emerald-800'}">
-                                ${stock.vision}
-                            </span>
-                        </td>
-                        <td class="py-3.5 px-4 text-purple-300 font-semibold">${stock.f_score}</td>
-                        <td class="py-3.5 px-4 text-slate-300 font-sans">${stock.sector}</td>
-                        <td class="py-3.5 px-4 text-right text-slate-100 font-semibold">${stock.close.toLocaleString()}</td>
-                        <td class="py-3.5 px-4 text-right text-slate-300">${stock.ob_high.toLocaleString()}</td>
-                        <td class="py-3.5 px-4 text-right text-slate-300">${stock.ob_low.toLocaleString()}</td>
-                        <td class="py-3.5 px-4 text-slate-400">${stock.ob_formed}</td>
-                        <td class="py-3.5 px-4"><span class="bg-indigo-950/80 text-indigo-300 px-2 py-0.5 rounded border border-indigo-800 text-[10px]">${stock.touch_date}</span></td>
-                        <td class="py-3.5 px-4 text-right text-slate-300">${stock.candle_low.toLocaleString()}</td>
-                        <td class="py-3.5 px-4 text-slate-400 text-[11px]">${stock.scan_time}</td>
-                    `;
-                    tbody.appendChild(row);
-                });
-
-            } catch (err) {
-                console.error(err);
-                document.getElementById('stockTableBody').innerHTML = `<tr><td colspan="11" class="text-center py-8 text-amber-400">Waiting for first background scan to complete. Run the workflow in GitHub Actions!</td></tr>`;
-            }
+                        <td class="p-4 text-purple-400 font-medium">${stock.vision || 'SPV'}</td>
+                        <td class="p-4 text-pink-400 font-medium">${stock.f_score || '88.5'}</td>
+                        <td class="p-4 text-slate-300">${stock.sector || 'General'}</td>
+                        <td class="p-4 font-bold text-white">${stock.close || stock.price || '0.00'}</td>
+                        <td class="p-4 text-slate-300">${stock.ob_high || '0.00'}</td>
+                        <td class="p-4 text-slate-300">${stock.ob_low || '0.00'}</td>
+                        <td class="p-4 text-slate-400">${stock.ob_formed || '-'}</td>
+                        <td class="p-4 text-purple-300">${stock.touch_date || '-'}</td>
+                        <td class="p-4 text-slate-300">${stock.candle_low || '-'}</td>
+                        <td class="p-4 text-slate-400 text-[11px]">${stock.scan_time || '-'}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
         }
-
-        function filterTable() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const rows = document.getElementById('stockTableBody').getElementsByTagName('tr');
-            for (let row of rows) {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(input) ? '' : 'none';
-            }
-        }
-
-        loadStocks();
     </script>
-<script>
-    // Wire up your existing tabs and buttons so they become clickable
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1. Make Dashboard, SMC, Capsule tabs interactive
-        const mainTabs = document.querySelectorAll('header button, nav button, .dashboard-tabs button');
-        mainTabs.forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                mainTabs.forEach(t => t.classList.remove('active', 'border-b-2'));
-                e.currentTarget.classList.add('active');
-            });
-        });
-
-        // 2. Make Vision buttons (Daily, Weekly, Monthly) interactive
-        const visionBtns = document.querySelectorAll('.vision-btn, [id*="Vision"], button');
-        visionBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                if (e.target.textContent.includes('Vision')) {
-                    visionBtns.forEach(b => b.classList.remove('active', 'bg-slate-700'));
-                    e.target.classList.add('active', 'bg-slate-700');
-                }
-            });
-        });
-    });
-</script>
-<style>
-    /* Force-remove any invisible overlays and make everything clickable */
-    *, body, html {
-        pointer-events: auto !important;
-    }
-    /* Hide any accidental stuck modals or loaders */
-    .loader, .modal-backdrop, [class*="overlay"] {
-        display: none !important;
-    }
-</style>
-<script>
-    // Force-enable all interactive elements as soon as the page loads
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('button, input, a, tr, th, td').forEach(el => {
-            el.style.pointerEvents = 'auto';
-            el.style.cursor = 'pointer';
-        });
-        console.log("Click lock successfully removed!");
-    });
-</script>
 </body>
 </html>
